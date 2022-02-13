@@ -1,5 +1,4 @@
-#ifndef _TIMER_H
-#define _TIMER_H
+#pragma once
 #include <SDL.h>
 class Timer
 {
@@ -29,4 +28,3 @@ private:
 	~Timer();
 
 };
-#endif // !_TIMER_H

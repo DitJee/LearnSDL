@@ -1,6 +1,4 @@
-#ifndef _GRAPHICS_H
-#define _GRAPHICS_H
-
+#pragma once
 #include <SDL.h>
 #include <stdio.h>
 
@@ -35,4 +33,4 @@ private:
 
 };
 
-#endif // !_GRAPHICS_H
+#pragma once

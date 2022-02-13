@@ -1,5 +1,4 @@
-#ifndef _MATHHELPER_H
-#define _MATHHELPER_H
+#pragma once
 #include <math.h>
 
 #define PI 3.14159265
@@ -39,4 +38,14 @@ inline Vector2 operator -(const Vector2& lhs, const Vector2& rhs)
 {
 	return Vector2(lhs.x - rhs.x, lhs.y - rhs.y);
 }
-#endif // !_MATHHELPER_H
+
+inline Vector2 RotateVector(Vector2& vec, float angle)
+{
+	float radAngle = (float)(angle * DEG_TO_RAD);
+
+	float xComp = (float)((cos(radAngle) * vec.x) - (sin(radAngle) * vec.y));
+
+	float yComp = (float)((sin(radAngle) * vec.x) + (cos(radAngle) * vec.y));
+
+	return Vector2(xComp, yComp);
+}

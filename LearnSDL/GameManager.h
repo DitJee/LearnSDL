@@ -1,11 +1,11 @@
-#ifndef _GAMEMANAGER_H
-#define _GAMEMANAGER_H
+#pragma once
 // *********************************************
 // Game manager will init everything in the game
 // *********************************************
 
 #include "Graphics.h"
 #include "Timer.h"
+#include "GameEntity.h"
 class GameManager 
 {
 private:
@@ -21,6 +21,9 @@ private:
 
 	const int FRAME_RATE = 60;
 
+	GameEntity* mParent;
+	GameEntity* mChild;
+
 public:
 
 	static GameManager* Instance();
@@ -33,4 +36,4 @@ private:
 	GameManager();
 	~GameManager();
 };
-#endif // !_GAMEMANAGER_H
+#pragma once
