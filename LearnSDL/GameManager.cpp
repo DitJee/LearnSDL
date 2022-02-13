@@ -36,9 +36,9 @@ GameManager::GameManager()
 	// init asset manager
 	mAssetManager = AssetManager::Instance();
 
-	mTexture = new Texture("me.png");
-
-	Texture* tex2 = new Texture("me.png");
+	mTexture = new Texture("SpriteSheet.png", 32,16,60-32,50-16);
+	
+	mTexture->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f));
 }
 
 GameManager::~GameManager()

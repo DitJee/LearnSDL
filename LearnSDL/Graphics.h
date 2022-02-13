@@ -31,7 +31,7 @@ public:
 
 	void ClearBackBuffer(); // called every frame to clear the canvas
 
-	void DrawTexture(SDL_Texture* texture);
+	void DrawTexture(SDL_Texture* texture, SDL_Rect* clip = NULL, SDL_Rect* rend = NULL);
 
 private:
 

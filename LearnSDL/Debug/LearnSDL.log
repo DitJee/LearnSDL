@@ -1,4 +1,6 @@
-﻿  GameManager.cpp
+﻿  AssetManager.cpp
+  GameManager.cpp
+  Graphics.cpp
   Texture.cpp
   main.cpp
   Generating Code...

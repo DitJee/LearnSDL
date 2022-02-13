@@ -124,9 +124,9 @@ void Graphics::ClearBackBuffer()
 
 }
 
-void Graphics::DrawTexture(SDL_Texture* texture)
+void Graphics::DrawTexture(SDL_Texture* texture, SDL_Rect* clip, SDL_Rect* rend)
 {
-	SDL_RenderCopy(mRenderer, texture, NULL, NULL);
+	SDL_RenderCopy(mRenderer, texture, clip, rend);
 }
 
 void Graphics::Render()
