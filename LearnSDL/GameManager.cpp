@@ -30,13 +30,15 @@ GameManager::GameManager()
 		mQuit = true;
 	}
 
+	// init timer
 	mTimer = Timer::Instance();
 
-	// get path at .exe
-	std::string path = SDL_GetBasePath();
-	path.append("Assets/me.png");
+	// init asset manager
+	mAssetManager = AssetManager::Instance();
 
-	mTexture = new Texture(path);
+	mTexture = new Texture("me.png");
+
+	Texture* tex2 = new Texture("me.png");
 }
 
 GameManager::~GameManager()
@@ -47,6 +49,10 @@ GameManager::~GameManager()
 	// release timer
 	mTimer->Release();
 	mTimer = NULL;
+
+	// delete asset manager
+	mAssetManager->Release();
+	mAssetManager = NULL;
 
 	// delete texture
 	delete mTexture;

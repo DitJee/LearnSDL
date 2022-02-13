@@ -22,6 +22,9 @@ private:
 	const int FRAME_RATE = 60;
 
 	Texture* mTexture;
+
+	AssetManager* mAssetManager;
+
 public:
 
 	static GameManager* Instance();
