@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
+#include <string>
 
 class Graphics
 {
@@ -15,6 +17,8 @@ private:
 	SDL_Window* mWindow;
 	SDL_Surface* mBackBuffer;
 
+	SDL_Renderer* mRenderer;
+
 public:
 
 	static Graphics* Instance(); // return the instance
@@ -22,6 +26,12 @@ public:
 	static bool Initialize();
 
 	void Render();
+
+	SDL_Texture* LoadTexture(const std::string& path);
+
+	void ClearBackBuffer(); // called every frame to clear the canvas
+
+	void DrawTexture(SDL_Texture* texture);
 
 private:
 
@@ -33,4 +43,3 @@ private:
 
 };
 
-#pragma once

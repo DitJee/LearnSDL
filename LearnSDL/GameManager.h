@@ -3,9 +3,9 @@
 // Game manager will init everything in the game
 // *********************************************
 
-#include "Graphics.h"
+
 #include "Timer.h"
-#include "GameEntity.h"
+#include "Texture.h"
 class GameManager 
 {
 private:
@@ -21,9 +21,7 @@ private:
 
 	const int FRAME_RATE = 60;
 
-	GameEntity* mParent;
-	GameEntity* mChild;
-
+	Texture* mTexture;
 public:
 
 	static GameManager* Instance();

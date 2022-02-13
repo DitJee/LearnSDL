@@ -32,16 +32,11 @@ GameManager::GameManager()
 
 	mTimer = Timer::Instance();
 
-	// init game entities
-	mParent = new GameEntity(100.0f, 400.0f);
-	mChild = new GameEntity(100.0f, 500.0f);
+	// get path at .exe
+	std::string path = SDL_GetBasePath();
+	path.append("Assets/me.png");
 
-	printf("child local pos %f , %f \n", mChild->Pos(GameEntity::SPACE::world).x, mChild->Pos(GameEntity::SPACE::world).y);
-	// set parent
-	mChild->Parent(mParent);
-
-	printf("child relative pos %f , %f \n", mChild->Pos(GameEntity::SPACE::world).x, mChild->Pos(GameEntity::SPACE::world).y);
-
+	mTexture = new Texture(path);
 }
 
 GameManager::~GameManager()
@@ -53,8 +48,9 @@ GameManager::~GameManager()
 	mTimer->Release();
 	mTimer = NULL;
 
-	delete mParent;
-	delete mChild;
+	// delete texture
+	delete mTexture;
+	mTexture = NULL;
 }
 
 void GameManager::Run()
@@ -76,12 +72,11 @@ void GameManager::Run()
 		if (mTimer->DeltaTime() >= (1.0f / FRAME_RATE))
 		{
 			//printf("Delta time: %f \n", mTimer->DeltaTime());
+			mGraphics->ClearBackBuffer();
 
-			// rotation the parent
-			mParent->Rotation(mParent->Rotation(GameEntity::SPACE::local) + 0.1f);
+			// draw texture
+			mTexture->Render();
 
-			printf("parent rotation: %f \n", mParent->Rotation(GameEntity::SPACE::local));
-			printf("child relative pos: %f, %f \n", mChild->Pos(GameEntity::SPACE::world).x, mChild->Pos(GameEntity::SPACE::world).y);
 			mGraphics->Render();	
 
 			mTimer->Reset();

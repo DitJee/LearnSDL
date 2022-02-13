@@ -1,2 +1,7 @@
 ﻿  GameEntity.cpp
+  GameManager.cpp
+  Graphics.cpp
+  main.cpp
+  Texture.cpp
+  Generating Code...
   LearnSDL.vcxproj -> C:\Users\ditde\source\repos\LearnSDL\Debug\LearnSDL.exe
