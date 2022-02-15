@@ -92,6 +92,11 @@ GameEntity* GameEntity::Parent()
 	return mParent;
 }
 
+void GameEntity::Translate(Vector2 vec)
+{
+	mPos += vec;
+}
+
 void GameEntity::Update()
 {
 

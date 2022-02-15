@@ -6,6 +6,7 @@
 
 #include "Timer.h"
 #include "Texture.h"
+#include "InputManager.h"
 class GameManager 
 {
 private:
@@ -24,6 +25,8 @@ private:
 	Texture* mTexture;
 
 	AssetManager* mAssetManager;
+
+	InputManager* mInputManager;
 
 public:
 

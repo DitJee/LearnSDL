@@ -1,7 +1,2 @@
-﻿  AssetManager.cpp
-  GameManager.cpp
-  Graphics.cpp
-  Texture.cpp
-  main.cpp
-  Generating Code...
+﻿  GameManager.cpp
   LearnSDL.vcxproj -> C:\Users\ditde\source\repos\LearnSDL\Debug\LearnSDL.exe
