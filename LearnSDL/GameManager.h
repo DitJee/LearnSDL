@@ -4,8 +4,7 @@
 // *********************************************
 
 
-#include "Timer.h"
-#include "Texture.h"
+#include "AnimatedTexture.h"
 #include "InputManager.h"
 class GameManager 
 {
@@ -22,11 +21,11 @@ private:
 
 	const int FRAME_RATE = 60;
 
-	Texture* mTexture;
-
 	AssetManager* mAssetManager;
 
 	InputManager* mInputManager;
+
+	AnimatedTexture* mAnimatedTexture;
 
 public:
 

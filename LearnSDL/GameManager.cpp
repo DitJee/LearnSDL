@@ -39,9 +39,11 @@ GameManager::GameManager()
 	// init input manager
 	mInputManager = InputManager::Instance();
 
-	mTexture = new Texture("SpriteSheet.png", 32,16,60-32,50-16);
+	mAnimatedTexture = new AnimatedTexture("SpriteSheet.png", 34, 16, 27, 32, 3, 0.2f, AnimatedTexture::ANIM_DIR::horizontal);
 	
-	mTexture->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f));
+	mAnimatedTexture->WrapMode(AnimatedTexture::WRAP_MODE::loop);
+
+	mAnimatedTexture->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f));
 }
 
 GameManager::~GameManager()
@@ -62,8 +64,8 @@ GameManager::~GameManager()
 	mInputManager = NULL;
 
 	// delete texture
-	delete mTexture;
-	mTexture = NULL;
+	delete mAnimatedTexture;
+	mAnimatedTexture = NULL;
 }
 
 void GameManager::Run()
@@ -87,22 +89,13 @@ void GameManager::Run()
 			// update KB input
 			mInputManager->Update();
 
-			// move the sprite
-			if (mInputManager->KeyDown(SDL_SCANCODE_W))
-			{
-				// * delta time to make the movement time dependent not frame dependent
-				mTexture->Translate(Vector2(0.0f, -40.0f) * mTimer->DeltaTime());
-			}
-			else if (mInputManager->KeyDown(SDL_SCANCODE_S))
-			{
-				mTexture->Translate(Vector2(0.0f, 40.0f) * mTimer->DeltaTime());
-			}
+			mAnimatedTexture->Update();
 
 			//printf("Delta time: %f \n", mTimer->DeltaTime());
 			mGraphics->ClearBackBuffer();
 
 			// draw texture
-			mTexture->Render();
+			mAnimatedTexture->Render();
 
 			mGraphics->Render();	
 

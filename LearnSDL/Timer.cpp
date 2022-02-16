@@ -8,8 +8,9 @@ Timer* Timer::Instance()
 	{
 		sInstance = new Timer();
 
-		return sInstance;
+		
 	}
+	return sInstance;
 }
 
 void Timer::Release()

@@ -3,7 +3,7 @@
 #include "AssetManager.h"
 class Texture : public GameEntity
 {
-private:
+protected:
 
 	SDL_Texture* mTexture;
 	Graphics* mGraphics;
@@ -15,6 +15,7 @@ private:
 
 	bool mClipped;
 	SDL_Rect mClippedRect;
+
 public:
 
 	Texture(const std::string& filename);
