@@ -13,6 +13,7 @@ private:
 
 	Vector2 mPos;
 	float mRotation;
+	Vector2 mScale;
 
 	bool mActive; // to tell if the obj is active or not
 	GameEntity* mParent; // use to link obj together
@@ -27,6 +28,9 @@ public:
 	void Rotation(float rotation);
 	float Rotation(SPACE space = SPACE::world);
 
+	void Scale(Vector2 scale);
+	Vector2 Scale(SPACE space = SPACE::world);
+
 	void Active(bool active);
 	bool Active(); 
 
@@ -34,6 +38,8 @@ public:
 	GameEntity* Parent();
 
 	void Translate(Vector2 vec);
+
+	void Rotate(float angle);
 
 	virtual void Update();
 	virtual void Render();

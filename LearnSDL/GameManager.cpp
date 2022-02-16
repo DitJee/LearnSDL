@@ -46,10 +46,13 @@ GameManager::GameManager()
 
 	mAnimatedTexture->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f));
 
-	mText2  = new Texture("Hello World!", "myFont.ttf", 72, { 0, 255, 0 });
+	mText2  = new Texture("Hello World!", "myFont.ttf", 72, { 255, 0, 0 });
 
-	mText2->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.8f));
+	mText2->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.6f));
 
+	mText2->Scale(Vector2(0.5f, 1.5f));
+
+	mText2->Parent(mAnimatedTexture);
 }
 
 GameManager::~GameManager()
@@ -110,7 +113,10 @@ void GameManager::Run()
 			}
 
 			//mAnimatedTexture->Update();
-
+			//mText2->Update();
+			mAnimatedTexture->Rotate(10 * mTimer->DeltaTime());
+			mText2->Rotate(10 * mTimer->DeltaTime());
+			mText2->Scale(mText2->Scale(GameEntity::SPACE::world) + Vector2(0.001f, 0.01f));
 			//printf("Delta time: %f \n", mTimer->DeltaTime());
 			mGraphics->ClearBackBuffer();
 

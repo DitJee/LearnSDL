@@ -14,6 +14,10 @@ GameEntity::GameEntity(float x, float y)
 
 	// set parent
 	mParent = NULL;
+
+	// set scale
+	mScale = VEC2_ONE;
+
 }
 
 GameEntity::~GameEntity()
@@ -34,11 +38,15 @@ Vector2 GameEntity::Pos(SPACE space)
 		return mPos;
 	}
 
+	Vector2 parentScale = mParent->Scale(SPACE::world);
+
 	// account for parent's rotation
 	Vector2 parentPos = mParent->Pos(SPACE::world);
 	Vector2 newRotation = RotateVector(mPos, mParent->Rotation(SPACE::local));
 
-	return  parentPos + newRotation;
+	Vector2 newPos = parentPos + Vector2(newRotation.x * parentScale.x, newRotation.y * parentScale.y);
+
+	return  newPos;
 	
 }
 
@@ -71,6 +79,25 @@ float GameEntity::Rotation(SPACE space)
 	return mParent->Rotation(SPACE::world) + mRotation;
 }
 
+void GameEntity::Scale(Vector2 scale)
+{
+	mScale = scale;
+}
+
+Vector2 GameEntity::Scale(SPACE space)
+{
+	if (space == SPACE::local || mParent == NULL)
+	{
+		return mScale;
+	}
+
+	Vector2 parentScale = mParent->Scale(SPACE::world);
+
+	Vector2 newScale = Vector2(parentScale.x * mScale.x, parentScale.y * mScale.y);
+
+	return newScale;
+}
+
 void GameEntity::Active(bool active)
 {
 	mActive = active;
@@ -83,7 +110,7 @@ bool GameEntity::Active()
 
 void GameEntity::Parent(GameEntity* parent)
 {
-	mPos = this->Pos(SPACE::world) - parent->Pos(SPACE::world);
+	mPos = Pos(SPACE::world) - parent->Pos(SPACE::world);
 	mParent = parent;
 }
 
@@ -95,6 +122,11 @@ GameEntity* GameEntity::Parent()
 void GameEntity::Translate(Vector2 vec)
 {
 	mPos += vec;
+}
+
+void GameEntity::Rotate(float angle)
+{
+	mRotation += angle;
 }
 
 void GameEntity::Update()

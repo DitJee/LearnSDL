@@ -32,7 +32,7 @@ public:
 
 	void ClearBackBuffer(); // called every frame to clear the canvas
 
-	void DrawTexture(SDL_Texture* texture, SDL_Rect* clip = NULL, SDL_Rect* rend = NULL);
+	void DrawTexture(SDL_Texture* texture, SDL_Rect* clip = NULL, SDL_Rect* rend = NULL, float angle = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 	SDL_Texture* CreateTextTexture(TTF_Font* font, const std::string& text, SDL_Color color);
 

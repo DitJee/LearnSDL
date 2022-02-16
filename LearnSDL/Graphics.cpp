@@ -132,9 +132,9 @@ void Graphics::ClearBackBuffer()
 
 }
 
-void Graphics::DrawTexture(SDL_Texture* texture, SDL_Rect* clip, SDL_Rect* rend)
+void Graphics::DrawTexture(SDL_Texture* texture, SDL_Rect* clip, SDL_Rect* rend, float angle, SDL_RendererFlip flip)
 {
-	SDL_RenderCopy(mRenderer, texture, clip, rend);
+	SDL_RenderCopyEx(mRenderer, texture, clip, rend, angle, NULL, flip);
 }
 
 SDL_Texture* Graphics::CreateTextTexture(TTF_Font* font, const std::string& text, SDL_Color color)

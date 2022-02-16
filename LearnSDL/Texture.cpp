@@ -60,9 +60,14 @@ void Texture::Render()
 	// get world position
 	Vector2 pos = Pos(SPACE::world);
 
-	// render the texture at the center of position
-	mRenderRect.x = (int)(pos.x - mWidth  * 0.5f);
-	mRenderRect.y = (int)(pos.y - mHeight * 0.5f);
+	// get scale
+	Vector2 scale = Scale(SPACE::world);
 
-	mGraphics->DrawTexture(mTexture, (mClipped) ? &mClippedRect : NULL, &mRenderRect);
+	// render the texture at the center of position
+	mRenderRect.x = (int)(pos.x - mWidth  * scale.x * 0.5f);
+	mRenderRect.y = (int)(pos.y - mHeight * scale.y * 0.5f);
+	mRenderRect.w = (int)(mWidth  * scale.x);
+	mRenderRect.h = (int)(mHeight * scale.y);
+
+	mGraphics->DrawTexture(mTexture, (mClipped) ? &mClippedRect : NULL, &mRenderRect, Rotation(SPACE::world));
 }
