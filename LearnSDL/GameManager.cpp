@@ -85,6 +85,62 @@ GameManager::~GameManager()
 	mText2 = NULL;
 }
 
+void GameManager::EarlyUpdate()
+{
+	// update KB input
+	mInputManager->Update();
+}
+
+void GameManager::Update()
+{
+	// play SFX
+	if (mInputManager->KeyPressed(SDL_SCANCODE_W))
+	{
+		mAudioManager->PlaySFX("sword-clash.wav", 0);
+	}
+
+	if (mInputManager->KeyReleased(SDL_SCANCODE_W))
+	{
+		mAudioManager->PlaySFX("sword-clash.wav", 0);
+	}
+
+	if (mInputManager->MouseButtonPressed(InputManager::MOUSE_BUTTONS::middle))
+	{
+
+		mAudioManager->PlaySFX("sword-clash.wav", 0);
+	}
+	if (mInputManager->MouseButtonReleased(InputManager::MOUSE_BUTTONS::left))
+	{
+		mAudioManager->PlaySFX("sword-clash.wav", 0);
+	}
+
+	//mAnimatedTexture->Update();
+	//mText2->Update();
+	mAnimatedTexture->Rotate(10 * mTimer->DeltaTime());
+	mText2->Rotate(10 * mTimer->DeltaTime());
+	mText2->Scale(mText2->Scale(GameEntity::SPACE::world) + Vector2(0.001f, 0.01f));
+	//printf("Delta time: %f \n", mTimer->DeltaTime());
+}
+
+void GameManager::Render()
+{
+	mGraphics->ClearBackBuffer();
+
+	// draw texture
+	mAnimatedTexture->Render();
+	mText2->Render();
+
+	mGraphics->Render();
+}
+
+
+void GameManager::LateUpdate()
+{
+	mInputManager->UpdatePrevInput();
+
+	mTimer->Reset();
+}
+
 void GameManager::Run()
 {
 	while (!mQuit)
@@ -103,31 +159,10 @@ void GameManager::Run()
 
 		if (mTimer->DeltaTime() >= (1.0f / FRAME_RATE))
 		{
-			// update KB input
-			mInputManager->Update();
-
-			// play SFX
-			if (mInputManager->KeyDown(SDL_SCANCODE_1))
-			{
-				mAudioManager->PlaySFX("sword-clash.wav",1);
-			}
-
-			//mAnimatedTexture->Update();
-			//mText2->Update();
-			mAnimatedTexture->Rotate(10 * mTimer->DeltaTime());
-			mText2->Rotate(10 * mTimer->DeltaTime());
-			mText2->Scale(mText2->Scale(GameEntity::SPACE::world) + Vector2(0.001f, 0.01f));
-			//printf("Delta time: %f \n", mTimer->DeltaTime());
-			mGraphics->ClearBackBuffer();
-
-			// draw texture
-			mAnimatedTexture->Render();
-			mText2->Render();
-
-			mGraphics->Render();	
-
-			mTimer->Reset();
-
+			EarlyUpdate();
+			Update();
+			Render();
+			LateUpdate();
 		}
 	}
 }

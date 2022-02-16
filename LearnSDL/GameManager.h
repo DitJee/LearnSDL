@@ -43,5 +43,11 @@ private:
 
 	GameManager();
 	~GameManager();
+
+	void EarlyUpdate();
+	void Update();
+	void LateUpdate();
+
+	void Render();
 };
 #pragma once
