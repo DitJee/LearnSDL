@@ -6,6 +6,7 @@
 
 #include "AnimatedTexture.h"
 #include "InputManager.h"
+#include "AudioManager.h"
 class GameManager 
 {
 private:
@@ -28,6 +29,8 @@ private:
 	Texture* mAnimatedTexture;
 
 	Texture* mText2;
+
+	AudioManager* mAudioManager;
 
 public:
 

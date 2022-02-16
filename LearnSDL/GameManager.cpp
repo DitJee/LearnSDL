@@ -39,6 +39,9 @@ GameManager::GameManager()
 	// init input manager
 	mInputManager = InputManager::Instance();
 
+	// init Audio manager
+	mAudioManager = AudioManager::Instance();
+
 	mAnimatedTexture = new Texture("Hello World!", "myFont.ttf", 72, {255, 0, 0});
 
 	mAnimatedTexture->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f));
@@ -71,6 +74,10 @@ GameManager::~GameManager()
 	delete mAnimatedTexture;
 	mAnimatedTexture = NULL;
 
+	// delete audio menager
+	mAudioManager->Release();
+	mAudioManager = NULL;
+
 	delete mText2;
 	mText2 = NULL;
 }
@@ -95,6 +102,12 @@ void GameManager::Run()
 		{
 			// update KB input
 			mInputManager->Update();
+
+			// play SFX
+			if (mInputManager->KeyDown(SDL_SCANCODE_1))
+			{
+				mAudioManager->PlaySFX("sword-clash.wav",1);
+			}
 
 			//mAnimatedTexture->Update();
 
