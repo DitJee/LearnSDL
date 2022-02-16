@@ -39,25 +39,29 @@ GameManager::GameManager()
 	// init input manager
 	mInputManager = InputManager::Instance();
 
-	mAnimatedTexture = new AnimatedTexture("SpriteSheet.png", 34, 16, 27, 32, 3, 0.2f, AnimatedTexture::ANIM_DIR::horizontal);
-	
-	mAnimatedTexture->WrapMode(AnimatedTexture::WRAP_MODE::loop);
+	mAnimatedTexture = new Texture("Hello World!", "myFont.ttf", 72, {255, 0, 0});
 
 	mAnimatedTexture->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f));
+
+	mText2  = new Texture("Hello World!", "myFont.ttf", 72, { 0, 255, 0 });
+
+	mText2->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.8f));
+
 }
 
 GameManager::~GameManager()
 {
+	// delete asset manager
+	mAssetManager->Release();
+	mAssetManager = NULL;
+
+	// release graphics
 	Graphics::Release();
 	mGraphics = NULL;
 
 	// release timer
 	mTimer->Release();
 	mTimer = NULL;
-
-	// delete asset manager
-	mAssetManager->Release();
-	mAssetManager = NULL;
 
 	// delete input manager
 	mInputManager->Release();
@@ -66,6 +70,9 @@ GameManager::~GameManager()
 	// delete texture
 	delete mAnimatedTexture;
 	mAnimatedTexture = NULL;
+
+	delete mText2;
+	mText2 = NULL;
 }
 
 void GameManager::Run()
@@ -89,13 +96,14 @@ void GameManager::Run()
 			// update KB input
 			mInputManager->Update();
 
-			mAnimatedTexture->Update();
+			//mAnimatedTexture->Update();
 
 			//printf("Delta time: %f \n", mTimer->DeltaTime());
 			mGraphics->ClearBackBuffer();
 
 			// draw texture
 			mAnimatedTexture->Render();
+			mText2->Render();
 
 			mGraphics->Render();	
 

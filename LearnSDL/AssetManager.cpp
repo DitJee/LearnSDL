@@ -7,6 +7,7 @@ AssetManager* AssetManager::Instance()
 	if (sInstance == NULL)
 	{
 		sInstance = new AssetManager();
+
 		return sInstance;
 	}
 	return sInstance;
@@ -35,6 +36,28 @@ AssetManager::~AssetManager()
 	}
 
 	mTextures.clear();
+
+	// clear texts
+	for (auto text : mTexts)
+	{
+		if (text.second != NULL)
+		{
+			SDL_DestroyTexture(text.second);
+		}
+	}
+
+	mTexts.clear();
+
+	// clear Fonts
+	for (auto font : mFonts)
+	{
+		if (font.second != NULL)
+		{
+			TTF_CloseFont(font.second);
+		}
+	}
+
+	mFonts.clear();
 }
 
 SDL_Texture* AssetManager::GetTexture(const std::string& filename)
@@ -48,4 +71,37 @@ SDL_Texture* AssetManager::GetTexture(const std::string& filename)
 	}
 	
 	return mTextures[FullPath];
+}
+
+TTF_Font* AssetManager::GetFont(const std::string& filename, int size)
+{
+	std::string fullPath = SDL_GetBasePath();
+	fullPath.append("Assets\\" + filename);
+
+	std::string key = fullPath + (char)size;
+
+	if (mFonts[key] == nullptr)
+	{
+		mFonts[key] = TTF_OpenFont(fullPath.c_str(), size); 
+
+		if (mFonts[key] == nullptr)
+		{
+			printf("font loading error: %s from font: %s\n", TTF_GetError(), filename.c_str());
+		}
+	}
+
+	return mFonts[key];
+}
+
+SDL_Texture* AssetManager::GetText(const std::string& text, const std::string& filename, int size, SDL_Color color)
+{
+	TTF_Font* font = GetFont(filename, size);
+
+	std::string key = text + filename + (char)size + (char)color.r + (char)color.g + (char)color.b;
+
+	if (mTexts[key] == nullptr)
+	{
+		mTexts[key] = Graphics::Instance()->CreateTextTexture(font, text, color);
+	}
+	return mTexts[key];
 }

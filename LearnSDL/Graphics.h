@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <string>
 
@@ -32,6 +33,8 @@ public:
 	void ClearBackBuffer(); // called every frame to clear the canvas
 
 	void DrawTexture(SDL_Texture* texture, SDL_Rect* clip = NULL, SDL_Rect* rend = NULL);
+
+	SDL_Texture* CreateTextTexture(TTF_Font* font, const std::string& text, SDL_Color color);
 
 private:
 

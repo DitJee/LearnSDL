@@ -25,7 +25,9 @@ private:
 
 	InputManager* mInputManager;
 
-	AnimatedTexture* mAnimatedTexture;
+	Texture* mAnimatedTexture;
+
+	Texture* mText2;
 
 public:
 
