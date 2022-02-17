@@ -48,11 +48,10 @@ GameManager::GameManager()
 
 	mText2  = new Texture("Hello World!", "myFont.ttf", 72, { 255, 0, 0 });
 
-	mText2->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.6f));
+	mText2->Pos(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.51f));
 
-	mText2->Scale(Vector2(0.5f, 1.5f));
+	//mText2->Scale(Vector2(0.5f, 1.5f));
 
-	mText2->Parent(mAnimatedTexture);
 }
 
 GameManager::~GameManager()
@@ -93,15 +92,16 @@ void GameManager::EarlyUpdate()
 
 void GameManager::Update()
 {
+	mAnimatedTexture->Rotate(10 * mTimer->DeltaTime());
 	// play SFX
 	if (mInputManager->KeyPressed(SDL_SCANCODE_W))
 	{
-		mAudioManager->PlaySFX("sword-clash.wav", 0);
+		mText2->Parent(mAnimatedTexture);
 	}
 
-	if (mInputManager->KeyReleased(SDL_SCANCODE_W))
+	if (mInputManager->KeyPressed(SDL_SCANCODE_S))
 	{
-		mAudioManager->PlaySFX("sword-clash.wav", 0);
+		mText2->Parent(NULL);
 	}
 
 	if (mInputManager->MouseButtonPressed(InputManager::MOUSE_BUTTONS::middle))
@@ -116,11 +116,18 @@ void GameManager::Update()
 
 	//mAnimatedTexture->Update();
 	//mText2->Update();
-	mAnimatedTexture->Rotate(10 * mTimer->DeltaTime());
-	mText2->Rotate(10 * mTimer->DeltaTime());
+	//mText2->Rotate(10 * mTimer->DeltaTime());
 	mText2->Scale(mText2->Scale(GameEntity::SPACE::world) + Vector2(0.001f, 0.01f));
 	//printf("Delta time: %f \n", mTimer->DeltaTime());
 }
+
+void GameManager::LateUpdate()
+{
+	mInputManager->UpdatePrevInput();
+
+	mTimer->Reset();
+}
+
 
 void GameManager::Render()
 {
@@ -131,14 +138,6 @@ void GameManager::Render()
 	mText2->Render();
 
 	mGraphics->Render();
-}
-
-
-void GameManager::LateUpdate()
-{
-	mInputManager->UpdatePrevInput();
-
-	mTimer->Reset();
 }
 
 void GameManager::Run()
@@ -161,8 +160,9 @@ void GameManager::Run()
 		{
 			EarlyUpdate();
 			Update();
-			Render();
 			LateUpdate();
+			Render();
+			
 		}
 	}
 }

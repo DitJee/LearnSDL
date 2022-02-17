@@ -58,6 +58,28 @@ AssetManager::~AssetManager()
 	}
 
 	mFonts.clear();
+
+	// clear music
+	for (auto music : mMusics)
+	{
+		if (music.second != NULL)
+		{
+			Mix_FreeMusic(music.second);
+		}
+	}
+
+	mMusics.clear();
+
+	// clear SFX
+	for (auto SFX : mSFXs)
+	{
+		if (SFX.second != NULL)
+		{
+			Mix_FreeChunk(SFX.second);
+		}
+	}
+
+	mSFXs.clear();
 }
 
 SDL_Texture* AssetManager::GetTexture(const std::string& filename)
